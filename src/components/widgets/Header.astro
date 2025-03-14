@@ -22,7 +22,7 @@ const {
   isDark = false,
   isFullWidth = false,
   showToggleTheme = false,
-  position = 'center',
+  position = 'right', // Changed position to 'right'
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
@@ -40,56 +40,56 @@ const contactPage = "/contact"; // Set the contact page URL
   <div class="absolute inset-0"></div>
   <div
     class:list={[
-      'relative text-default py-3 px-3 md:px-6 mx-auto w-full',
-      {
-        'md:flex md:justify-between': position !== 'center',
-      },
-      {
-        'md:grid md:grid-cols-3 md:items-center': position === 'center',
-      },
+      'relative text-default py-3 px-3 md:px-6 mx-auto w-full flex justify-between items-center',
       {
         'max-w-7xl': !isFullWidth,
       },
     ]}
   >
-    <div class="flex justify-between">
+    <!-- Left side: Logo -->
+    <div class="flex items-center">
       <a class="flex items-center" href={getHomePermalink()}>
         <Logo />
+        <span class="ml-2 font-bold text-lg">Chillsup.co</span> <!-- Changed Astro to Chillsup.co -->
       </a>
-      <div class="flex items-center md:hidden">
-        <ToggleMenu />
-      </div>
     </div>
 
-    <nav class="items-center hidden md:flex md:mx-5 text-default overflow-hidden md:justify-self-center">
-      <ul class="flex flex-col md:flex-row w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium">
-        <li>
-          <a
-            class:list={[
-              'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-              { 'aw-link-active': currentPath === getHomePermalink() },
-            ]}
-            href={getHomePermalink()}
-          >
-            Portfolio
-          </a>
-        </li>
-        <li>
-          <a
-            class:list={[
-              'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-              { 'aw-link-active': currentPath === contactPage },
-            ]}
-            href={contactPage}
-          >
-            Contact
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <!-- Right side: Navigation links and dark mode toggle -->
+    <div class="flex items-center space-x-6">
+      <nav class="hidden md:flex items-center">
+        <ul class="flex space-x-6 text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium">
+          <li>
+            <a
+              class:list={[
+                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+                { 'aw-link-active': currentPath === getHomePermalink() },
+              ]}
+              href={getHomePermalink()}
+            >
+              Portfolio
+            </a>
+          </li>
+          <li>
+            <a
+              class:list={[
+                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+                { 'aw-link-active': currentPath === contactPage },
+              ]}
+              href={contactPage}
+            >
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-    <div class="hidden md:flex items-center">
+      <!-- Dark Mode Toggle -->
       {showToggleTheme && <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />}
+      
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <ToggleMenu />
+      </div>
     </div>
   </div>
 </header>
