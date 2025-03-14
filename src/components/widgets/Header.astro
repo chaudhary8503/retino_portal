@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Logo from '~/components/Logo.astro';
+import Logo from '~/components/ChillsupLogo.astro'; // Updated to your custom logo
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
 
@@ -49,8 +49,8 @@ const contactPage = "/contact"; // Set the contact page URL
     <!-- Left side: Logo -->
     <div class="flex items-center">
       <a class="flex items-center" href={getHomePermalink()}>
-        <Logo />
-        <span class="ml-2 font-bold text-lg">Chillsup.co</span> <!-- Changed Astro to Chillsup.co -->
+        <Logo /> <!-- Using your custom logo -->
+        <span class="ml-2 font-bold text-lg">Chillsup.co</span> <!-- Only Chillsup.co now -->
       </a>
     </div>
 
