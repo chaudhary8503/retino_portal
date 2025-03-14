@@ -88,8 +88,13 @@ const contactPage = "/contact"; // Set the contact page URL
       </ul>
     </nav>
 
-    <div class="hidden md:flex items-center">
-      {showToggleTheme && <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />}
+    <div class="hidden md:flex items-center space-x-3">
+      {showToggleTheme && (
+        <div class="flex items-center space-x-2">
+          <span class="text-sm text-gray-600 dark:text-gray-400">Dark Mode</span>
+          <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />
+        </div>
+      )}
     </div>
   </div>
 </header>
