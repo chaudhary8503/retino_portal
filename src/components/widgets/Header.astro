@@ -26,6 +26,7 @@ const {
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
+const contactPage = "/contact"; // Set the contact page URL
 ---
 
 <header
@@ -70,7 +71,18 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
             ]}
             href={getHomePermalink()}
           >
-            Home
+            Portfolio
+          </a>
+        </li>
+        <li>
+          <a
+            class:list={[
+              'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
+              { 'aw-link-active': currentPath === contactPage },
+            ]}
+            href={contactPage}
+          >
+            Contact
           </a>
         </li>
       </ul>
