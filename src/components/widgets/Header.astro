@@ -1,6 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
-import Logo from '~/components/ChillsupLogo.astro'; // Updated to your custom logo
+import Logo from '~/components/ChillsupLogo.astro'; // Your custom logo
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
 
@@ -13,7 +12,6 @@ interface Props {
   isDark?: boolean;
   isFullWidth?: boolean;
   showToggleTheme?: boolean;
-  position?: string;
 }
 
 const {
@@ -22,11 +20,10 @@ const {
   isDark = false,
   isFullWidth = false,
   showToggleTheme = false,
-  position = 'right', // Changed position to 'right'
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
-const contactPage = "/contact"; // Set the contact page URL
+const contactPage = "/contact"; // Contact page URL
 ---
 
 <header
@@ -49,7 +46,7 @@ const contactPage = "/contact"; // Set the contact page URL
     <!-- Left side: Logo -->
     <div class="flex items-center">
       <a class="flex items-center" href={getHomePermalink()}>
-        <Logo /> <!-- Using your custom logo -->
+        <Logo class="h-8 w-8"/> <!-- Your custom logo -->
         <span class="ml-2 font-bold text-lg">Chillsup.co</span> <!-- Only Chillsup.co now -->
       </a>
     </div>
