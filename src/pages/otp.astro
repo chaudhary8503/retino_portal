@@ -1,15 +1,31 @@
 ---
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
+
+const [otp, setOtp] = useState("");
+const [timer, setTimer] = useState(30); // Countdown starts from 30 seconds
+const [canResend, setCanResend] = useState(false); // Controls Resend OTP button
+
+// Decrease the timer every second
+useEffect(() => {
+  if (timer > 0) {
+    const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    return () => clearInterval(interval);
+  } else {
+    setCanResend(true); // Enable Resend OTP button when timer reaches 0
+  }
+}, [timer]);
 
 const handleVerifyOTP = (event) => {
   event.preventDefault();
-  console.log("OTP Verified!");
-  // Here, you can integrate backend API logic for OTP verification.
+  console.log("OTP Verified:", otp);
+  // Here, you can call an API to verify the OTP
 };
 
 const handleResendOTP = () => {
   console.log("Resend OTP clicked!");
-  // Here, you can add API call to resend OTP.
+  setTimer(30); // Restart timer
+  setCanResend(false); // Disable Resend OTP until countdown completes
+  // Call API to resend OTP here
 };
 ---
 
@@ -33,6 +49,8 @@ const handleResendOTP = () => {
           type="text" 
           id="otp" 
           name="otp" 
+          value={otp} 
+          onInput={(e) => setOtp(e.target.value)}
           required 
           maxlength="6"
           pattern="[0-9]{6}"
@@ -50,10 +68,15 @@ const handleResendOTP = () => {
       </button>
     </form>
 
-    <!-- Resend OTP Option -->
+    <!-- Resend OTP Countdown -->
     <p class="text-center text-gray-600 dark:text-gray-400 mt-4">
-      Didn’t receive OTP? 
-      <button onclick={handleResendOTP} class="text-blue-500 hover:underline">Resend OTP</button>
+      {canResend ? (
+        <button onclick={handleResendOTP} class="text-blue-500 hover:underline">
+          Resend OTP
+        </button>
+      ) : (
+        `Resend OTP in ${timer}s`
+      )}
     </p>
 
     <!-- Back to Login Link -->
