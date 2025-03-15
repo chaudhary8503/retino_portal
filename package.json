@@ -32,7 +32,9 @@
     "astro-icon": "^1.1.5",
     "limax": "4.1.0",
     "lodash.merge": "^4.6.2",
-    "unpic": "^3.22.0"
+    "preact": "^10.26.4",
+    "unpic": "^3.22.0",
+    "zwitch": "^2.0.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
