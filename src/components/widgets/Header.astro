@@ -24,11 +24,12 @@ const {
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 const contactPage = "/contact"; // Contact page URL
+const loginPage = "/login"; // Login page URL
 ---
 
 <header
-  class:list={[
-    { sticky: isSticky, relative: !isSticky, dark: isDark },
+  class:list={[  
+    { sticky: isSticky, relative: !isSticky, dark: isDark },  
     'top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out',
   ]}
   {...isSticky ? { 'data-aw-sticky-header': true } : {}}
@@ -36,18 +37,16 @@ const contactPage = "/contact"; // Contact page URL
 >
   <div class="absolute inset-0"></div>
   <div
-    class:list={[
-      'relative text-default py-3 px-3 md:px-6 mx-auto w-full flex justify-between items-center',
-      {
-        'max-w-7xl': !isFullWidth,
-      },
+    class:list={[  
+      'relative text-default py-3 px-3 md:px-6 mx-auto w-full flex justify-between items-center',  
+      { 'max-w-7xl': !isFullWidth },  
     ]}
   >
     <!-- Left side: Logo -->
     <div class="flex items-center">
       <a class="flex items-center" href={getHomePermalink()}>
-        <ChillsupLogo class="h-8 w-8"/> <!-- Correct component -->
-        <span class="ml-2 font-bold text-lg">Chillsup.co</span> <!-- Only Chillsup.co now -->
+        <ChillsupLogo class="h-8 w-8"/> 
+        <span class="ml-2 font-bold text-lg">Chillsup.co</span> 
       </a>
     </div>
 
@@ -57,9 +56,9 @@ const contactPage = "/contact"; // Contact page URL
         <ul class="flex space-x-6 text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium">
           <li>
             <a
-              class:list={[
-                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-                { 'aw-link-active': currentPath === getHomePermalink() },
+              class:list={[  
+                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',  
+                { 'aw-link-active': currentPath === getHomePermalink() },  
               ]}
               href={getHomePermalink()}
             >
@@ -68,13 +67,24 @@ const contactPage = "/contact"; // Contact page URL
           </li>
           <li>
             <a
-              class:list={[
-                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',
-                { 'aw-link-active': currentPath === contactPage },
+              class:list={[  
+                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap',  
+                { 'aw-link-active': currentPath === contactPage },  
               ]}
               href={contactPage}
             >
               Contact
+            </a>
+          </li>
+          <li>
+            <a
+              class:list={[  
+                'hover:text-link dark:hover:text-white px-4 py-3 flex items-center whitespace-nowrap font-bold text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white transition-all',  
+                { 'aw-link-active': currentPath === loginPage },  
+              ]}
+              href={loginPage}
+            >
+              Login
             </a>
           </li>
         </ul>
@@ -82,7 +92,7 @@ const contactPage = "/contact"; // Contact page URL
 
       <!-- Dark Mode Toggle -->
       {showToggleTheme && <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />}
-      
+
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
         <ToggleMenu />
