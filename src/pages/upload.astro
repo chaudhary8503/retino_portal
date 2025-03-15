@@ -1,15 +1,61 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import UploadComponent from '~/components/UploadComponent.jsx';
+import { useState } from 'astro:content';
 
-const metadata = {
-  title: 'Upload Image | RetinoPortal',
-  ignoreTitleTemplate: false,
+// Function to handle file upload
+const handleUpload = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Creating FormData to send file
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+    alert(result.message || 'File uploaded successfully!');
+  } catch (error) {
+    alert('Upload failed. Please try again.');
+  }
 };
 ---
 
-<Layout metadata={metadata}>
-  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800">
-    <UploadComponent />
-  </section>
-</Layout>
+<head>
+  <title>Upload Page</title>
+</head>
+
+<body>
+  <h1>Upload an Image</h1>
+  
+  <form id="uploadForm">
+    <input type="file" id="fileInput" accept="image/*" />
+    <button type="button" onclick="uploadFile()">Upload</button>
+  </form>
+
+  <script>
+    async function uploadFile() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      if (!file) return alert('Please select a file');
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        alert(result.message || 'File uploaded successfully!');
+      } catch (error) {
+        alert('Upload failed. Please try again.');
+      }
+    }
+  </script>
+</body>
