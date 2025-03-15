@@ -1,6 +1,6 @@
 ### Project structure
 
-Inside **AstroWind** template, you'll see the following folders and files:
+Inside, you'll see the following folders and files:
 
 ```
 /
