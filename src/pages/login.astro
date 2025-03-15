@@ -1,3 +1,4 @@
+import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
 
 const handleLogin = (event) => {
@@ -8,64 +9,66 @@ const handleLogin = (event) => {
 
 export default function Login() {
   return (
-    <>
-      <head>
-        <title>Login | RetinoPortal</title>
-      </head>
-
-      <section class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
-        <div class="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200 dark:border-gray-700">
-          <h2 class="text-3xl font-semibold text-center text-gray-900 dark:text-white mb-6">
+    <Fragment>
+      <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
+        <div className="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200 dark:border-gray-700">
+          <h2 className="text-3xl font-semibold text-center text-gray-900 dark:text-white mb-6">
             Welcome Back
           </h2>
 
-          <form onSubmit={handleLogin} class="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5">
             {/* Email Input */}
             <div>
-              <label for="email" class="block text-gray-600 dark:text-gray-300 text-sm font-medium">Email</label>
+              <label htmlFor="email" className="block text-gray-600 dark:text-gray-300 text-sm font-medium">
+                Email
+              </label>
               <input 
                 type="email" 
                 id="email" 
                 name="email" 
                 required 
-                class="w-full mt-1 px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 transition"
+                className="w-full mt-1 px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 transition"
                 placeholder="Enter your email"
               />
             </div>
 
             {/* Password Input */}
             <div>
-              <label for="password" class="block text-gray-600 dark:text-gray-300 text-sm font-medium">Password</label>
+              <label htmlFor="password" className="block text-gray-600 dark:text-gray-300 text-sm font-medium">
+                Password
+              </label>
               <input 
                 type="password" 
                 id="password" 
                 name="password" 
                 required 
-                class="w-full mt-1 px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 transition"
+                className="w-full mt-1 px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 transition"
                 placeholder="Enter your password"
               />
             </div>
 
             {/* Forgot Password Link */}
-            <div class="text-right">
-              <a href="/forgot-password" class="text-blue-500 hover:underline text-sm">Forgot Password?</a>
+            <div className="text-right">
+              <a href="/forgot-password" className="text-blue-500 hover:underline text-sm">
+                Forgot Password?
+              </a>
             </div>
 
             {/* Login Button */}
             <button 
               type="submit" 
-              class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition shadow-md"
+              className="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition shadow-md"
             >
               Login
             </button>
           </form>
 
           {/* Sign Up Link */}
-          <p class="text-center text-gray-600 dark:text-gray-400 mt-5 text-sm">
-            Don’t have an account? <a href="/signup" class="text-blue-500 hover:underline">Sign up</a>
+          <p className="text-center text-gray-600 dark:text-gray-400 mt-5 text-sm">
+            Don’t have an account? <a href="/signup" className="text-blue-500 hover:underline">Sign up</a>
           </p>
         </div>
       </section>
-    </>
+    </Fragment>
   );
 }
