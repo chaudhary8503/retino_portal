@@ -1,24 +1,9 @@
 ---
-import { useState } from 'preact/hooks';
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
   title: 'Upload Image | RetinoPortal',
   ignoreTitleTemplate: false,
-};
-
-const [image, setImage] = useState(null);
-
-const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    setImage(URL.createObjectURL(file)); // Preview Image
-  }
-};
-
-const handleUpload = (event) => {
-  event.preventDefault();
-  console.log("Image Uploaded!");
 };
 ---
 
@@ -27,6 +12,25 @@ const handleUpload = (event) => {
     <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">
       
       <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-6">Upload Image</h2>
+
+      <!-- Client-Side React Component -->
+      <script is:client>
+        import { useState } from "preact/hooks";
+
+        const [image, setImage] = useState(null);
+
+        const handleFileChange = (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            setImage(URL.createObjectURL(file)); // Preview Image
+          }
+        };
+
+        const handleUpload = (event) => {
+          event.preventDefault();
+          console.log("Image Uploaded!");
+        };
+      </script>
 
       <form onSubmit={handleUpload} class="space-y-6">
         
