@@ -1,4 +1,3 @@
----
 import { useState } from 'preact/hooks';
 
 const handleLogin = (event) => {
@@ -6,60 +5,67 @@ const handleLogin = (event) => {
   console.log("Login button clicked!");
   // Add authentication logic here
 };
----
 
-<head>
-  <title>Login | RetinoPortal</title>
-</head>
+export default function Login() {
+  return (
+    <>
+      <head>
+        <title>Login | RetinoPortal</title>
+      </head>
 
-<section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
-  <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-md">
-    <h2 class="text-3xl font-bold text-center text-accent dark:text-white highlight mb-6">Welcome Back</h2>
+      <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-200 to-blue-400 dark:from-gray-900 dark:to-gray-800">
+        <div class="bg-white dark:bg-gray-800 p-10 md:p-12 rounded-3xl shadow-2xl w-full max-w-lg transform transition-all duration-500 hover:scale-105">
+          <h2 class="text-4xl font-extrabold text-center text-accent dark:text-white mb-8">
+            Welcome Back
+          </h2>
 
-    <form onSubmit={handleLogin} class="space-y-6">
-      <!-- Email Input -->
-      <div>
-        <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          required 
-          class="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white"
-          placeholder="Enter your email"
-        />
-      </div>
+          <form onSubmit={handleLogin} class="space-y-8">
+            {/* Email Input */}
+            <div>
+              <label for="email" class="block text-lg text-gray-700 dark:text-gray-300 font-medium">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                class="w-full px-5 py-3 mt-2 text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white"
+                placeholder="Enter your email"
+              />
+            </div>
 
-      <!-- Password Input -->
-      <div>
-        <label for="password" class="block text-gray-700 dark:text-gray-300 font-medium">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          required 
-          class="w-full px-4 py-2 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white"
-          placeholder="Enter your password"
-        />
-      </div>
+            {/* Password Input */}
+            <div>
+              <label for="password" class="block text-lg text-gray-700 dark:text-gray-300 font-medium">Password</label>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                required 
+                class="w-full px-5 py-3 mt-2 text-lg border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-4 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white"
+                placeholder="Enter your password"
+              />
+            </div>
 
-      <!-- Forgot Password Link -->
-      <div class="text-right">
-        <a href="/forgot-password" class="text-accent dark:text-blue-400 hover:underline text-sm">Forgot Password?</a>
-      </div>
+            {/* Forgot Password */}
+            <div class="text-right">
+              <a href="/forgot-password" class="text-accent dark:text-blue-400 hover:underline text-base">Forgot Password?</a>
+            </div>
 
-      <!-- Login Button -->
-      <button 
-        type="submit" 
-        class="w-full bg-accent text-white font-bold py-3 rounded-lg shadow-md hover:bg-opacity-90 transition-transform transform hover:scale-105"
-      >
-        Login
-      </button>
-    </form>
+            {/* Login Button */}
+            <button 
+              type="submit" 
+              class="w-full bg-accent text-white font-bold py-4 rounded-xl shadow-lg hover:bg-opacity-90 transform transition-all duration-300 hover:scale-105"
+            >
+              Login
+            </button>
+          </form>
 
-    <!-- Sign Up Link -->
-    <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
-      Don’t have an account? <a href="/signup" class="text-accent dark:text-blue-400 font-semibold hover:underline">Sign up</a>
-    </p>
-  </div>
-</section>
+          {/* Sign Up Link */}
+          <p class="text-center text-lg text-gray-600 dark:text-gray-400 mt-8">
+            Don’t have an account? <a href="/signup" class="text-accent dark:text-blue-400 font-semibold hover:underline">Sign up</a>
+          </p>
+        </div>
+      </section>
+    </>
+  );
+}
