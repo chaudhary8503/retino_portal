@@ -23,7 +23,7 @@ const metadata = {
   >
     <Fragment slot="title">
       Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white highlight"> Beautiful Website Templates</span>
+      <span class="text-accent dark:text-white highlight">Beautiful Website Templates</span>
     </Fragment>
 
     <Fragment slot="subtitle">
@@ -33,196 +33,62 @@ const metadata = {
     </Fragment>
   </Hero>
 
-  <!-- Stats Widget ****************** -->
+  <!-- Content Section ********************** -->
 
-  <Stats
-    title="Statistics about us"
-    stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
-    ]}
-  />
+  <section class="my-10">
+    <h2 class="text-3xl font-bold text-blue-600">What is Retinopathy of Prematurity?</h2>
+    <p class="mt-4">
+      Retinopathy of Prematurity (ROP) is a potentially blinding condition that affects premature infants. It occurs when abnormal blood vessels grow in the retina, which is the light-sensitive part of the eye. This disorder is primarily seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth. ROP can lead to retinal detachment and permanent vision loss if not diagnosed and treated early. Timely screening and intervention are crucial for preventing severe outcomes, but early detection remains a challenge, particularly in areas with a shortage of trained specialists.
+    </p>
+    <p class="mt-4">
+      In our research, we explored a deep learning-based solution to automate the diagnosis and classification of ROP severity. Our model uses retinal images to detect the condition and categorize it into various stages, allowing for quicker and more accurate decision-making by healthcare professionals.
+    </p>
+  </section>
 
-  <!-- Features3 Widget ************** -->
+  <!-- Breaking Down the Diagnosis Codes ********************** -->
 
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
-    columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
-  />
+  <section class="my-10">
+    <h2 class="text-3xl font-bold text-blue-600">Breaking Down the Diagnosis Codes</h2>
+    <p class="mt-4">
+      In diagnosing ROP, healthcare professionals use specific <strong>Diagnosis Codes (DG)</strong> to categorize the severity of the condition. These codes provide a standardized method for identifying the different stages of ROP and other retinal abnormalities. The diagnosis code system ranges from Stage 0, which signifies "No ROP," to Stage 5, which represents severe retinal detachment.
+    </p>
+    <ul class="list-disc pl-6 mt-4">
+      <li><strong>DG 0 (No ROP)</strong>: No signs of retinopathy.</li>
+      <li><strong>DG 1-2 (ROP Stages 1-2)</strong>: Early stages of ROP, where abnormal blood vessels start to form, but the condition can often be treated with medical intervention.</li>
+      <li><strong>DG 3-4 (ROP Stages 3-4)</strong>: More severe stages of ROP, where retinal detachment may begin to occur.</li>
+      <li><strong>DG 5 (Complete Retinal Detachment)</strong>: Severe ROP that can result in blindness without immediate medical intervention.</li>
+      <li><strong>Additional Codes</strong>: Some codes specify other forms of ROP such as AP-ROP or post-treatment stages.</li>
+    </ul>
+    <p class="mt-4">
+      These codes are used to assess the stage of ROP and determine the appropriate treatment, ensuring timely and accurate care for premature infants.
+    </p>
+  </section>
 
-  <!-- Features3 Widget ************** -->
+  <!-- The Problem & How We Can Help ********************** -->
 
-  <Features3
-    columns={3}
-    isAfterContent={true}
-    items={[
-      {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
-    }}
-  />
+  <section class="my-10">
+    <h2 class="text-3xl font-bold text-blue-600">The Problem & How We Can Help</h2>
+    <p class="mt-4">
+      ROP is a growing global concern, and its early detection is critical for preventing vision loss in premature infants. However, the lack of trained specialists, especially in remote or underserved areas, makes timely diagnosis difficult. Traditional manual screening methods are resource-intensive, requiring skilled ophthalmologists to interpret retinal images, a process that is often delayed due to a shortage of experts.
+    </p>
+    <p class="mt-4">
+      RetinoPortal offers a solution to this problem. Our platform leverages a deep learning-based model that uses convolutional neural networks (CNN) to detect and classify ROP with high accuracy. Trained on a dataset of over 6,000 retinal images, our model has achieved <strong>98.48% accuracy</strong> in diagnosing ROP, ensuring fast and reliable results for healthcare providers.
+    </p>
+    <p class="mt-4">
+      RetinoPortal is designed to be a tool that assists in rapidly identifying whether a premature infant has ROP, with a high degree of accuracy. Our model also provides a classification of ROP into specific stages, helping doctors decide on the most effective course of action.
+    </p>
+    <p class="mt-4">
+      As part of our mission to improve ROP diagnosis, we encourage healthcare professionals to <strong>create an account</strong> on RetinoPortal. By doing so, you'll be able to store and track historical reports, revisit them at any time, and access more insights into your patient's condition. The <strong class="text-green-500">upload button</strong> in green allows you to easily upload retinal images for analysis.
+    </p>
+  </section>
 
-  <!-- Steps2 Widget ****************** -->
+  <!-- Contact Us Section ********************** -->
 
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    isReversed={true}
-    callToAction={{
-      text: 'See more',
-      href: '/',
-    }}
-    items={[
-      {
-        title: 'Global reach',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:globe',
-      },
-      {
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:message-star',
-      },
-      {
-        title: 'Awards and recognition as industry experts',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:award',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
-    items={[
-      {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
-      },
-      {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
-      },
-      {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
-      },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
-    columns={2}
-    items={[
-      {
-        title: 'Chat with us',
-        description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
-      },
-      {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
-      },
-    ]}
-  />
+  <section class="my-10">
+    <h2 class="text-3xl font-bold text-blue-600">Contact Us</h2>
+    <p class="mt-4">
+      If you have any suggestions, improvements, or feedback regarding our platform, please don't hesitate to <strong>contact us</strong>. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.
+    </p>
+  </section>
+  
 </Layout>
