@@ -1,5 +1,6 @@
 ---
 import { useState } from 'preact/hooks';
+import { useRouter } from 'astro/router'; // Import router for navigation
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
@@ -10,6 +11,7 @@ const metadata = {
 const handleLogin = (event) => {
   event.preventDefault();
   console.log("Login button clicked!");
+  window.location.href = "/otp"; // Redirect to the OTP page
 };
 ---
 
