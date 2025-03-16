@@ -1,0 +1,26 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Generating Report | RetinoPortal',
+  ignoreTitleTemplate: false,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+    <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">
+      
+      <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-6">Generating Assessment Report</h2>
+      
+      <p class="text-gray-600 dark:text-gray-400 text-center mb-4">
+        Your file is being processed. Please wait while we generate the report.
+      </p>
+
+      <!-- Add any other content or loading spinner here as necessary -->
+      <div class="text-center mt-6">
+        <span class="text-lg text-gray-600 dark:text-gray-400">Processing...</span>
+      </div>
+    </div>
+  </section>
+</Layout>
