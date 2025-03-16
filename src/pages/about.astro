@@ -11,16 +11,44 @@ const metadata = {
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
   <Hero
-    tagline="Retinopathy of Prematurity"
     image={{
       src: 'https://images.unsplash.com/photo-CEEhmAGpYzE?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDgzfHxwcmVtYXR1cmV8ZW58MHx8fHwxNjE3NTIzMjAw&ixlib=rb-1.2.1&q=80&w=1080',
       alt: 'Baby holding wooden cube',
     }}
   >
-    <Fragment slot="title" class="text-center text-4xl font-bold text-blue-600">
-      Retinopathy of Prematurity
+
     </Fragment>
   </Hero>
+
+
+ <Content
+    isReversed
+    title="title: "What is Retinopathy of Prematurity?"
+    items={[
+      {
+        description:
+          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
+      },
+      {
+        description:
+          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
+      },
+      {
+        description:
+          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Colorful Image',
+    }}
+  >
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
 
   <!-- First Content Widget - What is Retinopathy of Prematurity? **************** -->
   <Content
