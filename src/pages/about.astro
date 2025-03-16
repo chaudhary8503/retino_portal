@@ -17,15 +17,19 @@ const metadata = {
     items={[
       {
         description:
-          'Retinopathy of Prematurity (ROP) is a potentially blinding condition that affects premature infants. It occurs when abnormal blood vessels grow in the retina, which is the light-sensitive part of the eye.',
+          'Retinopathy of Prematurity (ROP) is a condition that affects premature infants, potentially leading to blindness if not detected and treated early.',
       },
       {
         description:
-          'This disorder is primarily seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth. ROP can lead to retinal detachment and permanent vision loss if not diagnosed and treated early.',
+          'The condition is caused by abnormal growth of blood vessels in the retina, which can eventually lead to retinal detachment.',
       },
       {
         description:
-          'Timely screening and intervention are crucial for preventing severe outcomes, but early detection remains a challenge, particularly in areas with a shortage of trained specialists.',
+          'ROP is most commonly seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth.',
+      },
+      {
+        description:
+          'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
       },
     ]}
     image={{
@@ -34,30 +38,34 @@ const metadata = {
     }}
   >
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
   <!-- Content Widget - Understanding Diagnosis Codes **************** -->
   <Content
     isReversed
-    title="Understanding Diagnosis Codes"
+    title="Breaking Down the Diagnosis Codes"
     items={[
       {
         description:
-          'ICD-10 Code: The International Classification of Diseases, 10th Edition, is the most commonly used system for coding diseases and medical conditions. It is used worldwide for health insurance billing, diagnosis, and research.',
+          'DG 0 (No ROP): No signs of retinopathy; considered as normal.',
       },
       {
         description:
-          'E-Code: This code identifies external causes of injury and poisoning. It helps to record circumstances of accidents, such as falls or burns, and is used for statistical purposes.',
+          'DG 1-2 (ROP Stages 1-2): Early stages of ROP where abnormal blood vessels start to form; treatable with medical intervention.',
       },
       {
         description:
-          'Z-Code: These codes are used to identify factors that may influence a patient\'s health status but are not a disease or injury. They can include things like family history or lifestyle factors.',
+          'DG 3-4 (ROP Stages 3-4): Severe stages where retinal detachment may start; immediate intervention needed to prevent blindness.',
       },
       {
         description:
-          'CPT Code: The Current Procedural Terminology (CPT) code system is used for identifying medical, surgical, and diagnostic procedures, commonly for billing purposes in the U.S.',
+          'DG 5 (Complete Retinal Detachment): Severe ROP, leading to retinal detachment; can cause permanent vision loss without prompt treatment.',
+      },
+      {
+        description:
+          'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
       },
     ]}
     image={{
@@ -66,30 +74,30 @@ const metadata = {
     }}
   >
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
   <!-- Content Widget - The Problem and How We Can Help **************** -->
   <Content
     isReversed
-    title="The Problem and How We Can Help"
+    title="The Problem & How We Can Help"
     items={[
       {
         description:
-          'Early detection of Retinopathy of Prematurity (ROP) is crucial to prevent vision loss, but many areas lack the necessary expertise and infrastructure for proper screening.',
+          'ROP\'s early detection remains a global challenge, especially in underserved regions where trained specialists are scarce. Traditional manual screening is time-consuming and resource-intensive, delaying diagnoses and treatment.',
       },
       {
         description:
-          'Delayed or improper diagnosis can result in permanent damage to the retina, leading to loss of vision in infants who may not be treated in time.',
+          'RetinoPortal provides an AI-driven solution using deep learning techniques, particularly convolutional neural networks (CNN), to automate the detection and classification of ROP.',
       },
       {
         description:
-          'Lack of awareness and access to trained specialists limits the early detection of ROP, especially in low-resource regions.',
+          'Trained on a dataset of over 6,000 retinal images, our model has achieved 98.48% accuracy, offering fast, reliable, and accurate results to healthcare professionals.',
       },
       {
         description:
-          'Our platform provides an easy and efficient way for hospitals and healthcare providers to screen and track ROP cases, offering support through AI-driven analysis.',
+          'This aids in early diagnosis and timely intervention, reducing the risk of blindness.',
       },
     ]}
     image={{
@@ -98,7 +106,7 @@ const metadata = {
     }}
   >
     <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
     </Fragment>
     <Fragment slot="footer">
       <div class="text-center mt-4">
@@ -112,11 +120,11 @@ const metadata = {
   <!-- Content Widget - Contact Us for Any Support **************** -->
   <Content
     isReversed
-    title="Contact Us for Any Support"
+    title="Contact Us"
     items={[
       {
         description:
-          '• If you have any questions or need assistance, feel free to reach out to us via email. Our team is here to support you every step of the way.',
+          'If you have any suggestions, improvements, or feedback regarding our platform, please don’t hesitate to contact us. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.',
       },
     ]}
   >
