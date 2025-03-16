@@ -1,0 +1,65 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Locate Nearby Hospitals | RetinoPortal',
+  ignoreTitleTemplate: false,
+};
+
+const handleLocate = (event) => {
+  event.preventDefault();
+  console.log("Find button clicked!");
+  // Here, you can implement the logic for locating nearby retinopathy hospitals
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+    <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">
+      
+      <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-6">Locate Nearby Retinopathy Hospitals</h2>
+      
+      <p class="text-gray-600 dark:text-gray-400 text-center mb-4">
+        Find retinopathy hospitals near you for immediate assistance. Enter your location and click "Find" to get results.
+      </p>
+      
+      <form onSubmit={handleLocate} class="space-y-6">
+        
+        <!-- Location Input -->
+        <div>
+          <label for="location" class="block text-gray-700 dark:text-gray-300 font-medium">Enter Your Location</label>
+          <input 
+            type="text" 
+            id="location" 
+            name="location" 
+            required 
+            class="w-full px-4 py-3 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white transition"
+            placeholder="Enter city or area"
+          />
+        </div>
+
+        <!-- Find Button -->
+        <button 
+          type="submit" 
+          class="w-full bg-accent text-white font-semibold py-3 rounded-lg shadow-md hover:bg-accent-dark hover:scale-[1.03] transition-transform"
+        >
+          Find
+        </button>
+      </form>
+
+      <!-- Back Link -->
+      <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
+        Back to <a href="/report" class="text-accent font-semibold hover:underline">Report</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Ensuring Client-Side Script Runs -->
+  <script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      console.log("Find button clicked!");
+      // Implement logic to locate nearby hospitals
+    });
+  </script>
+</Layout>
