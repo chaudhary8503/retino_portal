@@ -14,7 +14,8 @@ const {
   callToAction,
   items = [],
   columns,
-  image = await Astro.slots.render('image'),
+  image1 = await Astro.slots.render('imj1'),  // Reference for content 1 image
+  image2 = await Astro.slots.render('imj2'),  // Reference for content 2 image
   isReversed = false,
   isAfterContent = false,
 
@@ -41,21 +42,15 @@ const {
       subtitle: 'max-w-3xl mx-auto sm:text-center text-xl text-muted dark:text-slate-400',
     }}
   />
+
   <div class="mx-auto max-w-7xl p-4 md:px-8">
-    <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
+    <!-- Content 1: Reduced bullet points to 2 -->
+    <div class="md:flex md:gap-16">
       <div class="md:basis-1/2 self-center">
         {content && <div class="mb-12 text-lg dark:text-slate-400" set:html={content} />}
 
-        {
-          callToAction && (
-            <div class="mt-[-40px] mb-8 text-primary">
-              <Button variant="link" {...callToAction} />
-            </div>
-          )
-        }
-
         <ItemGrid
-          items={items}
+          items={items.slice(0, 2)}  <!-- Reduced bullet points to 2 -->
           columns={columns}
           defaultIcon="" <!-- Removed the default icon -->
           classes={{
@@ -68,28 +63,68 @@ const {
         />
       </div>
 
-      <!-- If no image, center the text to occupy full space -->
-      <div aria-hidden="true" class={`mt-10 md:mt-0 md:basis-1/2 ${!image ? 'text-center' : ''}`}>
-        {
-          image && (
-            <div class="relative m-auto max-w-4xl">
-              {typeof image === 'string' ? (
-                <Fragment set:html={image} />
-              ) : (
-                <Image
-                  class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg"
-                  width={500}
-                  height={500}
-                  widths={[400, 768]}
-                  sizes="(max-width: 768px) 100vw, 432px"
-                  layout="responsive"
-                  {...image}
-                />
-              )}
-            </div>
-          )
-        }
+      <!-- Content 1 Image -->
+      <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
+        {image1 && (
+          <div class="relative m-auto max-w-4xl">
+            {typeof image1 === 'string' ? (
+              <Fragment set:html={image1} />
+            ) : (
+              <Image
+                class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg"
+                width={500}
+                height={500}
+                widths={[400, 768]}
+                sizes="(max-width: 768px) 100vw, 432px"
+                layout="responsive"
+                {...image1}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Content 2: Image to the right and bullet points to the left -->
+    <div class="md:flex md:gap-16 mt-16">
+      <!-- Content 2 Image on the right -->
+      <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
+        {image2 && (
+          <div class="relative m-auto max-w-4xl">
+            {typeof image2 === 'string' ? (
+              <Fragment set:html={image2} />
+            ) : (
+              <Image
+                class="mx-auto w-full rounded-lg bg-gray-500 shadow-lg"
+                width={500}
+                height={500}
+                widths={[400, 768]}
+                sizes="(max-width: 768px) 100vw, 432px"
+                layout="responsive"
+                {...image2}
+              />
+            )}
+          </div>
+        )}
+      </div>
+
+      <div class="md:basis-1/2 self-center">
+        <ItemGrid
+          items={items.slice(2)}  <!-- Bullet points for content 2, starting from 3rd item -->
+          columns={columns}
+          defaultIcon="" <!-- Removed the default icon -->
+          classes={{
+            container: `gap-y-4 md:gap-y-8`,
+            panel: 'max-w-none',
+            title: 'text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2',
+            description: 'text-muted dark:text-slate-400 ml-2 rtl:ml-0 rtl:mr-2',
+            action: 'text-lg font-medium leading-6 dark:text-white ml-2 rtl:ml-0 rtl:mr-2',
+          }}
+        />
       </div>
     </div>
   </div>
 </WidgetWrapper>
+
+<!-- Content 4 removed and placed outside the WidgetWrapper -->
+<!-- You can add any content related to "content 4" here, outside the WidgetWrapper -->
