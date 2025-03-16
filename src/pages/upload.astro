@@ -11,8 +11,10 @@ const handleUpload = (event) => {
   event.preventDefault();
   console.log("File upload triggered!");
 
-  // Redirect to the report generation page
-  window.location.href = '/report'; // Redirect to the 'Generating Assessment Report' page
+  // Ensure redirection happens after the form is handled
+  setTimeout(() => {
+    window.location.replace('/report'); // Redirect to the 'Generating Assessment Report' page
+  }, 500); // Delay to ensure the form handling is completed first
 };
 ---
 
