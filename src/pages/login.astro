@@ -1,6 +1,5 @@
 ---
 import { useState } from 'preact/hooks';
-import { useRouter } from 'astro/router'; // Import router for navigation
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
@@ -11,7 +10,7 @@ const metadata = {
 const handleLogin = (event) => {
   event.preventDefault();
   console.log("Login button clicked!");
-  window.location.href = "/otp"; // Redirect to the OTP page
+  window.location.href = "/otp"; // ✅ Redirects to OTP page
 };
 ---
 
@@ -68,5 +67,14 @@ const handleLogin = (event) => {
         Don’t have an account? <a href="/signup" class="text-accent font-semibold hover:underline">Sign up</a>
       </p>
     </div>
-  </section>
+  </section> 
+
+  <!-- ✅ Ensuring Client-Side Script Runs -->
+  <script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      console.log("Login button clicked!");
+      window.location.href = "/otp"; // ✅ Works without preact issues
+    });
+  </script>
 </Layout>
