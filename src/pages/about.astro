@@ -100,20 +100,15 @@ const metadata = {
           'This aids in early diagnosis and timely intervention, reducing the risk of blindness.',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDk2fHxwcmVtYXR1cmV8ZW58MHx8fHwxNjE3NTIzMjAw&ixlib=rb-1.2.1&q=80&w=1080',
-      alt: 'Help and Support Image',
-    }}
   >
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
     </Fragment>
-    <Fragment slot="footer">
-      <div class="text-center mt-4">
-        <a href="/uploadastro" class="bg-blue-500 text-white px-6 py-2 rounded">
-          Upload Your Data
-        </a>
-      </div>
+    <Fragment slot="footer" class="text-center mt-4">
+      <strong class="block mb-2">Upload and Test</strong>
+      <a href="/uploadastro" class="bg-blue-500 text-white px-6 py-2 rounded">
+        Upload Your Data
+      </a>
     </Fragment>
   </Content>
 
@@ -129,9 +124,12 @@ const metadata = {
     ]}
   >
     <Fragment slot="footer" class="text-center mt-4">
-      <a href="mailto:support@ropplatform.com" class="text-blue-600 underline">
-        support@ropplatform.com
-      </a>
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="border rounded px-4 py-2"
+      />
+      <p class="mt-2 text-blue-600">support@ropplatform.com</p>
     </Fragment>
   </Content>
 
