@@ -1,63 +1,108 @@
 ---
 import Content from '~/components/widgets/Content.astro';
+import Hero from '~/components/widgets/Hero.astro';
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
-  title: 'About Retinopathy of Prematurity',
+  title: 'Retinopathy of Prematurity',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Content Widget **************** -->
-
-  <Content
-    isReversed
-    isAfterContent
-    items={[
-      {
-        title: 'What is Retinopathy of Prematurity?',
-        description:
-          'Retinopathy of Prematurity (ROP) is a potentially blinding condition that affects premature infants. It occurs when abnormal blood vessels grow in the retina, which is the light-sensitive part of the eye. This disorder is primarily seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth. ROP can lead to retinal detachment and permanent vision loss if not diagnosed and treated early. Timely screening and intervention are crucial for preventing severe outcomes, but early detection remains a challenge, particularly in areas with a shortage of trained specialists.',
-      },
-      {
-        title: 'Breaking Down the Diagnosis Codes',
-        description:
-          'In diagnosing ROP, healthcare professionals use specific Diagnosis Codes (DG) to categorize the severity of the condition. These codes provide a standardized method for identifying the different stages of ROP and other retinal abnormalities. The diagnosis code system ranges from Stage 0, which signifies "No ROP," to Stage 5, which represents severe retinal detachment.',
-      },
-      {
-        title: 'The Problem & How We Can Help',
-        description:
-          'ROP is a growing global concern, and its early detection is critical for preventing vision loss in premature infants. However, the lack of trained specialists, especially in remote or underserved areas, makes timely diagnosis difficult. RetinoPortal offers a solution to this problem by leveraging a deep learning-based model that detects and classifies ROP with high accuracy. Trained on a dataset of over 6,000 retinal images, our model provides reliable results, ensuring fast and accurate diagnosis.',
-      },
-      {
-        title: 'Contact Us',
-        description:
-          'If you have any suggestions, improvements, or feedback regarding our platform, please don’t hesitate to contact us. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.',
-      },
-    ]}
+  <!-- Hero Widget ******************* -->
+  <Hero
+    tagline="Retinopathy of Prematurity"
     image={{
       src: 'https://images.unsplash.com/photo-CEEhmAGpYzE?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDgzfHxwcmVtYXR1cmV8ZW58MHx8fHwxNjE3NTIzMjAw&ixlib=rb-1.2.1&q=80&w=1080',
       alt: 'Baby holding wooden cube',
     }}
   >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
-
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    <Fragment slot="title" class="text-center text-4xl font-bold text-blue-600">
+      Retinopathy of Prematurity
     </Fragment>
+  </Hero>
 
-    <!-- Upload Button -->
-    <div class="text-center mt-6">
-      <button class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">
-        Upload Retinal Image
-      </button>
-    </div>
-
-    <!-- Contact Section -->
-    <div class="text-center mt-6">
-      <a href="mailto:support@retinopotal.com" class="text-blue-600 underline">
-        support@retinopotal.com
-      </a>
-    </div>
+  <!-- First Content Widget - What is Retinopathy of Prematurity? **************** -->
+  <Content
+    isReversed
+    items={[
+      {
+        title: 'What is Retinopathy of Prematurity?',
+        description:
+          'Retinopathy of Prematurity (ROP) is a potentially blinding condition that affects premature infants. It occurs when abnormal blood vessels grow in the retina, which is the light-sensitive part of the eye. This disorder is primarily seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth. ROP can lead to retinal detachment and permanent vision loss if not diagnosed and treated early. Timely screening and intervention are crucial for preventing severe outcomes, but early detection remains a challenge, particularly in areas with a shortage of trained specialists.',
+        listItems: [
+          'Occurs in premature infants born before 32 weeks of gestation or weighing less than 2.75 pounds.',
+          'Abnormal blood vessels form in the retina and can cause retinal detachment.',
+          'Can lead to permanent vision loss if not diagnosed and treated early.',
+          'Early detection remains difficult in areas with a shortage of trained specialists.',
+        ],
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixid=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'Retina Image',
+    }}
+  >
+    <Fragment slot="content">Learn about Retinopathy of Prematurity (ROP) and its challenges.</Fragment>
   </Content>
+
+  <!-- Second Content Widget - Breaking Down Diagnosis Codes **************** -->
+  <Content
+    isReversed
+    items={[
+      {
+        title: 'Reading Diagnosis Codes',
+        description:
+          'In diagnosing ROP, healthcare professionals use specific Diagnosis Codes (DG) to categorize the severity of the condition. These codes provide a standardized method for identifying the different stages of ROP and other retinal abnormalities.',
+        listItems: [
+          'DG 0: No ROP - No signs of retinopathy.',
+          'DG 1-2: ROP Stages 1-2 - Early stages of abnormal blood vessel formation.',
+          'DG 3-4: ROP Stages 3-4 - More severe stages with retinal detachment.',
+          'DG 5: Complete Retinal Detachment - Severe ROP requiring immediate intervention.',
+          'Additional Codes: Specific codes for other forms of ROP like AP-ROP and post-treatment stages.',
+        ],
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1608742411292-04eb83d06634?crop=entropy&cs=tinysrgb&fit=max&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1080&q=80',
+      alt: 'Diagnosis Codes Image',
+    }}
+  >
+    <Fragment slot="content">Understand the diagnosis codes used to assess ROP severity.</Fragment>
+  </Content>
+
+  <!-- Third Content Widget - How We Can Help **************** -->
+  <Content
+    isReversed
+    items={[
+      {
+        title: 'How We Can Help',
+        description:
+          'RetinoPortal offers a deep learning-based model for detecting and classifying ROP with high accuracy. This model ensures quicker and more accurate results, helping healthcare professionals make timely decisions. Our platform is designed to support doctors and medical staff in regions with a shortage of trained specialists.',
+        listItems: [
+          'AI-driven ROP detection with over 98% accuracy.',
+          'Automated classification of ROP into stages for better treatment planning.',
+          'Accessible from any device, ensuring easy use in remote locations.',
+          'No need for specialized equipment—retinal images are analyzed on our platform.',
+        ],
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1606842860505-4c85b9075b72?crop=entropy&cs=tinysrgb&fit=max&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1080&q=80',
+      alt: 'How We Can Help Image',
+    }}
+  >
+    <Fragment slot="content">Learn about the tools and solutions we offer to improve ROP diagnosis.</Fragment>
+  </Content>
+
+  <!-- Contact Us Section ********************** -->
+  <section class="my-10 text-center">
+    <h2 class="text-3xl font-bold text-blue-600">Contact Us</h2>
+    <p class="mt-4">
+      If you have any suggestions, improvements, or feedback regarding our platform, please don’t hesitate to contact us. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.
+    </p>
+    <a href="mailto:support@retinopotal.com" class="text-blue-600 underline mt-4 inline-block">
+      support@retinopotal.com
+    </a>
+  </section>
 </Layout>
