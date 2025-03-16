@@ -1,6 +1,9 @@
+---
 import Content from '~/components/widgets/Content.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import Imj1 from '~/components/imj1.astro';
+import Imj2 from '~/components/imj2.astro';
 
 const metadata = {
   title: 'Retinopathy of Prematurity',
@@ -31,11 +34,13 @@ const metadata = {
         'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
     },
   ]}
-
 >
   <Fragment slot="bg">
     <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
   </Fragment>
+
+  <!-- Image Component -->
+  <Imj1 />
 </Content>
 
 <Content
@@ -63,11 +68,13 @@ const metadata = {
         'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
     },
   ]}
-
 >
   <Fragment slot="bg">
     <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
   </Fragment>
+
+  <!-- Image Component -->
+  <Imj2 />
 </Content>
 
   <!-- Content Widget - The Problem and How We Can Help **************** -->
