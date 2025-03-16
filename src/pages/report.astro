@@ -17,9 +17,30 @@ const metadata = {
         Your file is being processed. Please wait while we generate the report.
       </p>
 
-      <!-- Add any other content or loading spinner here as necessary -->
+      <!-- Report Section -->
       <div class="text-center mt-6">
         <span class="text-lg text-gray-600 dark:text-gray-400">Processing...</span>
+        
+        <!-- Display the generated report when ready -->
+        <div class="mt-6">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">Your Assessment Report</h3>
+          <a href="/path-to-generated-report.pdf" 
+             class="text-accent hover:underline mt-2 block text-center" 
+             download>
+             Download Report (PDF)
+          </a>
+        </div>
+
+        <!-- Button to locate retinopathy hospitals -->
+        <div class="mt-8">
+          <p class="text-lg text-gray-600 dark:text-gray-400 mb-4">
+            Locate nearby retinopathy hospitals:
+          </p>
+          <a href="/locate" 
+             class="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
+            Locate
+          </a>
+        </div>
       </div>
     </div>
   </section>
