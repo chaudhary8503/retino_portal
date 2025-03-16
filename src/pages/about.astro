@@ -10,72 +10,71 @@ const metadata = {
 <Layout metadata={metadata}>
   
   <!-- Content Widget - What is Retinopathy of Prematurity? **************** -->
-  <Content
-    isReversed
-    title="What is Retinopathy of Prematurity?"
-    items={[
-      {
-        description:
-          'Retinopathy of Prematurity (ROP) is a condition that affects premature infants, potentially leading to blindness if not detected and treated early.',
-      },
-      {
-        description:
-          'The condition is caused by abnormal growth of blood vessels in the retina, which can eventually lead to retinal detachment.',
-      },
-      {
-        description:
-          'ROP is most commonly seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth.',
-      },
-      {
-        description:
-          'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
-      },
-    ]}
-    image={{
-      src: '/public/imj1.jpg',  <!-- Updated image reference -->
-      alt: 'Retinopathy of Prematurity Image',
-    }}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+ <Content
+  isReversed
+  title="What is Retinopathy of Prematurity?"
+  items={[
+    {
+      description:
+        'Retinopathy of Prematurity (ROP) is a condition that affects premature infants, potentially leading to blindness if not detected and treated early.',
+    },
+    {
+      description:
+        'The condition is caused by abnormal growth of blood vessels in the retina, which can eventually lead to retinal detachment.',
+    },
+    {
+      description:
+        'ROP is most commonly seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth.',
+    },
+    {
+      description:
+        'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
+    },
+  ]}
+  image={{
+    src: '/imj1.jpg',  // Updated path
+    alt: 'Colorful Image',
+  }}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
 
-  <!-- Content Widget - Understanding Diagnosis Codes **************** -->
-  <Content
-    isReversed
-    title="Breaking Down the Diagnosis Codes"
-    items={[
-      {
-        description:
-          'DG 0 (No ROP): No signs of retinopathy; considered as normal.',
-      },
-      {
-        description:
-          'DG 1-2 (ROP Stages 1-2): Early stages of ROP where abnormal blood vessels start to form; treatable with medical intervention.',
-      },
-      {
-        description:
-          'DG 3-4 (ROP Stages 3-4): Severe stages where retinal detachment may start; immediate intervention needed to prevent blindness.',
-      },
-      {
-        description:
-          'DG 5 (Complete Retinal Detachment): Severe ROP, leading to retinal detachment; can cause permanent vision loss without prompt treatment.',
-      },
-      {
-        description:
-          'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
-      },
-    ]}
-    image={{
-      src: '/public/imj2.jpg',  <!-- Updated image reference -->
-      alt: 'Diagnosis Codes Image',
-    }}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+<Content
+  isReversed
+  title="Breaking Down the Diagnosis Codes"
+  items={[
+    {
+      description:
+        'DG 0 (No ROP): No signs of retinopathy; considered as normal.',
+    },
+    {
+      description:
+        'DG 1-2 (ROP Stages 1-2): Early stages of ROP where abnormal blood vessels start to form; treatable with medical intervention.',
+    },
+    {
+      description:
+        'DG 3-4 (ROP Stages 3-4): Severe stages where retinal detachment may start; immediate intervention needed to prevent blindness.',
+    },
+    {
+      description:
+        'DG 5 (Complete Retinal Detachment): Severe ROP, leading to retinal detachment; can cause permanent vision loss without prompt treatment.',
+    },
+    {
+      description:
+        'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
+    },
+  ]}
+  image={{
+    src: '/imj2.png',  // Updated path
+    alt: 'Diagnosis Codes Image',
+  }}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
+  </Fragment>
+</Content>
 
   <!-- Content Widget - The Problem and How We Can Help **************** -->
   <Content
