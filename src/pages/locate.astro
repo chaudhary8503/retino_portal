@@ -18,7 +18,6 @@ const metadata = {
       </p>
       
       <form id="locationForm" class="space-y-6">
-        <!-- Location Input -->
         <div>
           <label for="location" class="block text-gray-700 dark:text-gray-300 font-medium">Enter Your Location</label>
           <input 
@@ -29,8 +28,6 @@ const metadata = {
             placeholder="Enter city or area"
           />
         </div>
-
-        <!-- Find Button -->
         <button 
           type="submit" 
           class="w-full bg-accent text-white font-semibold py-3 rounded-lg shadow-md hover:bg-accent-dark hover:scale-[1.03] transition-transform"
@@ -41,7 +38,6 @@ const metadata = {
     </div>
   </section>
 
-  <!-- Results Popup -->
   <div id="popup" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full">
       <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Nearby Retinopathy Hospitals</h3>
@@ -52,80 +48,42 @@ const metadata = {
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
   <script>
-    const googleAPIKey = "YOUR_GOOGLE_PLACES_API_KEY"; // Replace with your Google Places API Key
-
     document.getElementById("locationForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const locationInput = document.getElementById("location").value.trim();
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            fetchHospitals(latitude, longitude);
-          },
-          () => {
-            if (locationInput) {
-              geocodeLocation(locationInput);
-            } else {
-              showError("Location access denied. Please enter your location manually.");
-            }
-          }
-        );
+      if (locationInput) {
+        searchHospitals(locationInput);
       } else {
-        if (locationInput) {
-          geocodeLocation(locationInput);
-        } else {
-          showError("Geolocation is not supported in your browser. Please enter your location manually.");
-        }
+        showError("Please enter a valid location.");
       }
     });
 
-    function geocodeLocation(address) {
-      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${googleAPIKey}`;
-      fetch(geocodeUrl)
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "OK") {
-            const { lat, lng } = data.results[0].geometry.location;
-            fetchHospitals(lat, lng);
-          } else {
-            showError("Invalid location. Please try again.");
-          }
-        })
-        .catch(() => showError("Error fetching location data."));
-    }
-
-    function fetchHospitals(lat, lng) {
-      const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=hospital&keyword=retinopathy&key=${googleAPIKey}`;
-      
-      fetch(placesUrl)
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "OK" && data.results.length > 0) {
-            displayHospitals(data.results);
-          } else {
-            showError("No hospitals found near your location.");
-          }
-        })
-        .catch(() => showError("Error fetching hospital data."));
-    }
-
-    function displayHospitals(hospitals) {
+    function searchHospitals(location) {
       const resultsDiv = document.getElementById("results");
-      resultsDiv.innerHTML = hospitals
-        .slice(0, 5) // Show top 5 results
-        .map(hospital => `
-          <div class="p-3 border border-gray-300 dark:border-gray-600 rounded-lg">
-            <p class="font-semibold">${hospital.name}</p>
-            <p class="text-sm">${hospital.vicinity}</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospital.name)}" target="_blank" class="text-blue-500 hover:underline">View on Google Maps</a>
-          </div>
-        `)
-        .join("");
+      resultsDiv.innerHTML = "<p class='text-blue-500'>Searching for nearby hospitals...</p>";
 
-      document.getElementById("popup").classList.remove("hidden");
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=hospital+near+${encodeURIComponent(location)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length === 0) {
+            showError("No hospitals found near this location.");
+            return;
+          }
+
+          let hospitalsList = "<h3 class='text-lg font-semibold mb-2'>Top Hospitals Nearby:</h3><ul class='list-disc pl-5 text-gray-700 dark:text-gray-300'>";
+          data.slice(0, 5).forEach(hospital => {
+            hospitalsList += `<li><a href="https://www.google.com/maps/search/?api=1&query=${hospital.lat},${hospital.lon}" target="_blank" class="text-accent font-semibold hover:underline">${hospital.display_name}</a></li>`;
+          });
+          hospitalsList += "</ul>";
+
+          resultsDiv.innerHTML = hospitalsList;
+          document.getElementById("popup").classList.remove("hidden");
+        })
+        .catch(error => {
+          console.error("Error fetching hospital data:", error);
+          showError("Error fetching hospital data. Please try again later.");
+        });
     }
 
     function showError(message) {
