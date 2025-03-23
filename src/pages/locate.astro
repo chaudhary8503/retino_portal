@@ -51,10 +51,9 @@ const metadata = {
         </div>
       </div>
 
-      <!-- Back Link -->
-      <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
-        Back to <a href="/report" class="text-accent font-semibold hover:underline">Report</a>
-      </p>
+      <!-- Hidden iframe for Google Maps scraping -->
+      <iframe id="googleIframe" class="hidden"></iframe>
+
     </div>
   </section>
 
@@ -63,17 +62,16 @@ const metadata = {
     document.getElementById("locationForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const locationInput = document.getElementById("location").value.trim();
-      const resultsDiv = document.getElementById("hospitalList");
-
+      
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            showHospitals(`${latitude},${longitude}`);
+            searchHospitals(`${latitude},${longitude}`);
           },
           () => {
             if (locationInput) {
-              showHospitals(locationInput);
+              searchHospitals(locationInput);
             } else {
               alert("Location access denied. Please enter your location manually.");
             }
@@ -81,31 +79,49 @@ const metadata = {
         );
       } else {
         if (locationInput) {
-          showHospitals(locationInput);
+          searchHospitals(locationInput);
         } else {
           alert("Geolocation is not supported in your browser. Please enter your location manually.");
         }
       }
     });
 
-    function showHospitals(location) {
-      const googleSearchUrl = `https://www.google.com/search?q=retinopathy+hospitals+near+${encodeURIComponent(location)}`;
-      
-      // Simulating top 5 hospitals (Google search results don't return structured data)
-      const hospitals = [
-        { name: "RetinoCare Hospital", link: googleSearchUrl },
-        { name: "Vision Eye Center", link: googleSearchUrl },
-        { name: "Bright Sight Clinic", link: googleSearchUrl },
-        { name: "EyeCare Specialists", link: googleSearchUrl },
-        { name: "Retina Health Institute", link: googleSearchUrl }
-      ];
+    function searchHospitals(location) {
+      const mapsUrl = `https://www.google.com/maps/search/retinopathy+hospitals+near+${encodeURIComponent(location)}`;
+      const iframe = document.getElementById("googleIframe");
+      iframe.src = mapsUrl;
 
+      iframe.onload = () => {
+        setTimeout(() => {
+          extractHospitalData(iframe);
+        }, 3000); // Wait for content to load
+      };
+    }
+
+    function extractHospitalData(iframe) {
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      const hospitalList = [];
+
+      const searchResults = iframeDocument.querySelectorAll('[role="article"]'); // Finding search results
+      searchResults.forEach((result, index) => {
+        if (index < 5) {
+          const name = result.querySelector('h3')?.innerText || "Unknown Hospital";
+          const link = result.querySelector('a')?.href || "https://www.google.com/maps";
+          hospitalList.push({ name, link });
+        }
+      });
+
+      updateHospitalList(hospitalList);
+    }
+
+    function updateHospitalList(hospitals) {
       const resultsDiv = document.getElementById("hospitalList");
-      resultsDiv.innerHTML = hospitals.map(hospital => 
-        `<li><a href="${hospital.link}" target="_blank" class="text-accent font-semibold hover:underline">${hospital.name}</a></li>`
-      ).join("");
+      resultsDiv.innerHTML = hospitals.length
+        ? hospitals.map(hospital => 
+            `<li><a href="${hospital.link}" target="_blank" class="text-accent font-semibold hover:underline">${hospital.name}</a></li>`
+          ).join("")
+        : "<p class='text-red-500'>No hospitals found. Try again.</p>";
 
-      // Show modal
       document.getElementById("modal").classList.remove("hidden");
     }
 
