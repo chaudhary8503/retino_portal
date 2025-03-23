@@ -18,8 +18,6 @@ const metadata = {
       </p>
       
       <form id="locationForm" class="space-y-6">
-        
-        <!-- Location Input -->
         <div>
           <label for="location" class="block text-gray-700 dark:text-gray-300 font-medium">Enter Your Location</label>
           <input 
@@ -31,7 +29,6 @@ const metadata = {
           />
         </div>
 
-        <!-- Find Button -->
         <button 
           type="submit" 
           class="w-full bg-accent text-white font-semibold py-3 rounded-lg shadow-md hover:bg-accent-dark hover:scale-[1.03] transition-transform"
@@ -44,15 +41,12 @@ const metadata = {
       <div id="modal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Nearby Retinopathy Hospitals</h3>
-          <ul id="hospitalList" class="space-y-2"></ul>
+          <ul id="hospitalList" class="space-y-2 text-gray-700 dark:text-gray-300"></ul>
           <button id="closeModal" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">
             Close
           </button>
         </div>
       </div>
-
-      <!-- Hidden iframe for Google Maps scraping -->
-      <iframe id="googleIframe" class="hidden"></iframe>
 
     </div>
   </section>
@@ -62,16 +56,16 @@ const metadata = {
     document.getElementById("locationForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const locationInput = document.getElementById("location").value.trim();
-      
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            searchHospitals(`${latitude},${longitude}`);
+            openGoogleMapsSearch(`${latitude},${longitude}`);
           },
           () => {
             if (locationInput) {
-              searchHospitals(locationInput);
+              openGoogleMapsSearch(locationInput);
             } else {
               alert("Location access denied. Please enter your location manually.");
             }
@@ -79,39 +73,29 @@ const metadata = {
         );
       } else {
         if (locationInput) {
-          searchHospitals(locationInput);
+          openGoogleMapsSearch(locationInput);
         } else {
           alert("Geolocation is not supported in your browser. Please enter your location manually.");
         }
       }
     });
 
-    function searchHospitals(location) {
+    function openGoogleMapsSearch(location) {
       const mapsUrl = `https://www.google.com/maps/search/retinopathy+hospitals+near+${encodeURIComponent(location)}`;
-      const iframe = document.getElementById("googleIframe");
-      iframe.src = mapsUrl;
+      
+      // Open Google Maps search results
+      window.open(mapsUrl, "_blank");
 
-      iframe.onload = () => {
-        setTimeout(() => {
-          extractHospitalData(iframe);
-        }, 3000); // Wait for content to load
-      };
-    }
+      // Dummy hospital list (to be replaced with real scraping in future)
+      const dummyHospitals = [
+        { name: "RetinoCare Hospital", link: mapsUrl },
+        { name: "Vision Eye Center", link: mapsUrl },
+        { name: "Bright Sight Clinic", link: mapsUrl },
+        { name: "EyeCare Specialists", link: mapsUrl },
+        { name: "Retina Health Institute", link: mapsUrl }
+      ];
 
-    function extractHospitalData(iframe) {
-      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-      const hospitalList = [];
-
-      const searchResults = iframeDocument.querySelectorAll('[role="article"]'); // Finding search results
-      searchResults.forEach((result, index) => {
-        if (index < 5) {
-          const name = result.querySelector('h3')?.innerText || "Unknown Hospital";
-          const link = result.querySelector('a')?.href || "https://www.google.com/maps";
-          hospitalList.push({ name, link });
-        }
-      });
-
-      updateHospitalList(hospitalList);
+      updateHospitalList(dummyHospitals);
     }
 
     function updateHospitalList(hospitals) {
