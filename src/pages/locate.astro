@@ -42,13 +42,17 @@ const metadata = {
 
       <!-- Search Results -->
       <div id="results" class="mt-6 text-center text-gray-700 dark:text-gray-300"></div>
-
-      <!-- Back Link -->
-      <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
-        Back to <a href="/report" class="text-accent font-semibold hover:underline">Report</a>
-      </p>
     </div>
   </section>
+
+  <!-- Popup Modal -->
+  <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full">
+      <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Nearby Hospitals</h3>
+      <div id="hospitalList" class="space-y-3"></div>
+      <button id="closePopup" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">Close</button>
+    </div>
+  </div>
 
   <!-- JavaScript Logic -->
   <script>
@@ -61,11 +65,11 @@ const metadata = {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            searchHospitals(`${latitude},${longitude}`);
+            fetchHospitals(latitude, longitude);
           },
           () => {
             if (locationInput) {
-              searchHospitals(locationInput);
+              geocodeAddress(locationInput);
             } else {
               resultsDiv.innerHTML = "<p class='text-red-500'>Location access denied. Please enter your location manually.</p>";
             }
@@ -73,21 +77,73 @@ const metadata = {
         );
       } else {
         if (locationInput) {
-          searchHospitals(locationInput);
+          geocodeAddress(locationInput);
         } else {
           resultsDiv.innerHTML = "<p class='text-red-500'>Geolocation is not supported in your browser. Please enter your location manually.</p>";
         }
       }
     });
 
-    function searchHospitals(location) {
-      const googleSearchUrl = `https://www.google.com/search?q=retinopathy+hospitals+near+${encodeURIComponent(location)}`;
-      document.getElementById("results").innerHTML = `
-        <p class='text-green-600'>Hospitals found! Click below:</p>
-        <a href="${googleSearchUrl}" target="_blank" class="text-accent font-semibold hover:underline">
-          View on Google Maps
-        </a>
-      `;
+    function geocodeAddress(address) {
+      const apiKey = "YOUR_GOOGLE_API_KEY";  // Replace with your Google API key
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "OK") {
+            const { lat, lng } = data.results[0].geometry.location;
+            fetchHospitals(lat, lng);
+          } else {
+            document.getElementById("results").innerHTML = "<p class='text-red-500'>Invalid location. Please try again.</p>";
+          }
+        })
+        .catch(() => {
+          document.getElementById("results").innerHTML = "<p class='text-red-500'>Failed to fetch location. Try again.</p>";
+        });
     }
+
+    function fetchHospitals(lat, lng) {
+      const apiKey = "YOUR_GOOGLE_API_KEY";  // Replace with your Google API key
+      const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=hospital&keyword=retinopathy&key=${apiKey}`;
+
+      fetch(placesUrl)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "OK" && data.results.length > 0) {
+            showPopup(data.results);
+          } else {
+            document.getElementById("results").innerHTML = "<p class='text-red-500'>No hospitals found nearby.</p>";
+          }
+        })
+        .catch(() => {
+          document.getElementById("results").innerHTML = "<p class='text-red-500'>Failed to fetch hospital data.</p>";
+        });
+    }
+
+    function showPopup(hospitals) {
+      const popup = document.getElementById("popup");
+      const hospitalList = document.getElementById("hospitalList");
+      hospitalList.innerHTML = "";
+
+      hospitals.slice(0, 5).forEach(hospital => {
+        const hospitalElement = document.createElement("div");
+        hospitalElement.classList.add("p-2", "border", "rounded", "bg-gray-100", "dark:bg-gray-700");
+
+        hospitalElement.innerHTML = `
+          <p class="font-bold text-gray-900 dark:text-white">${hospital.name}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Rating: ${hospital.rating || "N/A"}</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospital.name)}&query_place_id=${hospital.place_id}" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+            View on Google Maps
+          </a>
+        `;
+
+        hospitalList.appendChild(hospitalElement);
+      });
+
+      popup.classList.remove("hidden");
+    }
+
+    document.getElementById("closePopup").addEventListener("click", function() {
+      document.getElementById("popup").classList.add("hidden");
+    });
   </script>
 </Layout>
