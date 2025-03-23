@@ -18,7 +18,6 @@ const metadata = {
       </p>
       
       <form id="locationForm" class="space-y-6">
-        
         <!-- Location Input -->
         <div>
           <label for="location" class="block text-gray-700 dark:text-gray-300 font-medium">Enter Your Location</label>
@@ -39,28 +38,27 @@ const metadata = {
           Find
         </button>
       </form>
-
-      <!-- Search Results -->
-      <div id="results" class="mt-6 text-center text-gray-700 dark:text-gray-300"></div>
     </div>
   </section>
 
-  <!-- Popup Modal -->
-  <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+  <!-- Results Popup -->
+  <div id="popup" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full">
-      <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Nearby Hospitals</h3>
-      <div id="hospitalList" class="space-y-3"></div>
-      <button id="closePopup" class="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600">Close</button>
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Nearby Retinopathy Hospitals</h3>
+      <div id="results" class="space-y-3 text-gray-700 dark:text-gray-300"></div>
+      <button id="closePopup" class="mt-4 w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600">
+        Close
+      </button>
     </div>
   </div>
 
   <!-- JavaScript Logic -->
   <script>
+    const googleAPIKey = "YOUR_GOOGLE_PLACES_API_KEY"; // Replace with your Google Places API Key
+
     document.getElementById("locationForm").addEventListener("submit", function(event) {
       event.preventDefault();
       const locationInput = document.getElementById("location").value.trim();
-      const resultsDiv = document.getElementById("results");
-
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -69,80 +67,73 @@ const metadata = {
           },
           () => {
             if (locationInput) {
-              geocodeAddress(locationInput);
+              geocodeLocation(locationInput);
             } else {
-              resultsDiv.innerHTML = "<p class='text-red-500'>Location access denied. Please enter your location manually.</p>";
+              showError("Location access denied. Please enter your location manually.");
             }
           }
         );
       } else {
         if (locationInput) {
-          geocodeAddress(locationInput);
+          geocodeLocation(locationInput);
         } else {
-          resultsDiv.innerHTML = "<p class='text-red-500'>Geolocation is not supported in your browser. Please enter your location manually.</p>";
+          showError("Geolocation is not supported in your browser. Please enter your location manually.");
         }
       }
     });
 
-    function geocodeAddress(address) {
-      const apiKey = "YOUR_GOOGLE_API_KEY";  // Replace with your Google API key
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`)
+    function geocodeLocation(address) {
+      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${googleAPIKey}`;
+      fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
           if (data.status === "OK") {
             const { lat, lng } = data.results[0].geometry.location;
             fetchHospitals(lat, lng);
           } else {
-            document.getElementById("results").innerHTML = "<p class='text-red-500'>Invalid location. Please try again.</p>";
+            showError("Invalid location. Please try again.");
           }
         })
-        .catch(() => {
-          document.getElementById("results").innerHTML = "<p class='text-red-500'>Failed to fetch location. Try again.</p>";
-        });
+        .catch(() => showError("Error fetching location data."));
     }
 
     function fetchHospitals(lat, lng) {
-      const apiKey = "YOUR_GOOGLE_API_KEY";  // Replace with your Google API key
-      const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=hospital&keyword=retinopathy&key=${apiKey}`;
-
+      const placesUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=5000&type=hospital&keyword=retinopathy&key=${googleAPIKey}`;
+      
       fetch(placesUrl)
         .then(response => response.json())
         .then(data => {
           if (data.status === "OK" && data.results.length > 0) {
-            showPopup(data.results);
+            displayHospitals(data.results);
           } else {
-            document.getElementById("results").innerHTML = "<p class='text-red-500'>No hospitals found nearby.</p>";
+            showError("No hospitals found near your location.");
           }
         })
-        .catch(() => {
-          document.getElementById("results").innerHTML = "<p class='text-red-500'>Failed to fetch hospital data.</p>";
-        });
+        .catch(() => showError("Error fetching hospital data."));
     }
 
-    function showPopup(hospitals) {
-      const popup = document.getElementById("popup");
-      const hospitalList = document.getElementById("hospitalList");
-      hospitalList.innerHTML = "";
+    function displayHospitals(hospitals) {
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = hospitals
+        .slice(0, 5) // Show top 5 results
+        .map(hospital => `
+          <div class="p-3 border border-gray-300 dark:border-gray-600 rounded-lg">
+            <p class="font-semibold">${hospital.name}</p>
+            <p class="text-sm">${hospital.vicinity}</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospital.name)}" target="_blank" class="text-blue-500 hover:underline">View on Google Maps</a>
+          </div>
+        `)
+        .join("");
 
-      hospitals.slice(0, 5).forEach(hospital => {
-        const hospitalElement = document.createElement("div");
-        hospitalElement.classList.add("p-2", "border", "rounded", "bg-gray-100", "dark:bg-gray-700");
-
-        hospitalElement.innerHTML = `
-          <p class="font-bold text-gray-900 dark:text-white">${hospital.name}</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Rating: ${hospital.rating || "N/A"}</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hospital.name)}&query_place_id=${hospital.place_id}" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
-            View on Google Maps
-          </a>
-        `;
-
-        hospitalList.appendChild(hospitalElement);
-      });
-
-      popup.classList.remove("hidden");
+      document.getElementById("popup").classList.remove("hidden");
     }
 
-    document.getElementById("closePopup").addEventListener("click", function() {
+    function showError(message) {
+      document.getElementById("results").innerHTML = `<p class="text-red-500">${message}</p>`;
+      document.getElementById("popup").classList.remove("hidden");
+    }
+
+    document.getElementById("closePopup").addEventListener("click", function () {
       document.getElementById("popup").classList.add("hidden");
     });
   </script>
