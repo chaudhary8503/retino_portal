@@ -35,3 +35,10 @@ predicted_label = class_labels[predicted_class] if predicted_class < len(class_l
 print(f"Predicted Class Index: {predicted_class}")
 print(f"Predicted Diagnosis: {predicted_label}")
 
+# from firebase_utils import save_prediction
+
+# # Your prediction logic here
+# result = your_model_predict(data)
+
+# # Save result to Firebase under the logged-in user's UID
+# save_prediction(user_id='user123', prediction_result=result)

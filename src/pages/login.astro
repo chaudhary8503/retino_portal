@@ -1,80 +1,13 @@
 ---
-import { useState } from 'preact/hooks';
 import Layout from '~/layouts/PageLayout.astro';
+import LoginForm from '../components/LoginForm.jsx';
 
 const metadata = {
   title: 'Login | RetinoPortal',
   ignoreTitleTemplate: false,
 };
-
-const handleLogin = (event) => {
-  event.preventDefault();
-  console.log("Login button clicked!");
-  window.location.href = "/otp"; // ✅ Redirects to OTP page
-};
 ---
 
 <Layout metadata={metadata}>
-  <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800">
-    <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">
-      
-      <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-6">Sign In</h2>
-      
-      <form onSubmit={handleLogin} class="space-y-6">
-        
-        <!-- Email Input -->
-        <div>
-          <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            required 
-            class="w-full px-4 py-3 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white transition"
-            placeholder="Enter your email"
-          />
-        </div>
-
-        <!-- Password Input -->
-        <div>
-          <label for="password" class="block text-gray-700 dark:text-gray-300 font-medium">Password</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            required 
-            class="w-full px-4 py-3 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white transition"
-            placeholder="Enter your password"
-          />
-        </div>
-
-        <!-- Forgot Password -->
-        <div class="text-right">
-          <a href="/forgot-password" class="text-accent hover:underline text-sm">Forgot Password?</a>
-        </div>
-
-        <!-- Login Button -->
-        <button 
-          type="submit" 
-          class="w-full bg-accent text-white font-semibold py-3 rounded-lg shadow-md hover:bg-accent-dark hover:scale-[1.03] transition-transform"
-        >
-          Login
-        </button>
-      </form>
-
-      <!-- Sign Up Link -->
-      <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
-        Don’t have an account? <a href="/signup" class="text-accent font-semibold hover:underline">Sign up</a>
-      </p>
-    </div>
-  </section> 
-
-  <!-- ✅ Ensuring Client-Side Script Runs -->
-  <script>
-    document.querySelector("form").addEventListener("submit", function(event) {
-      event.preventDefault();
-      console.log("Login button clicked!");
-      window.location.href = "/otp"; // ✅ Works without preact issues
-    });
-  </script>
+  <LoginForm client:load />
 </Layout>
