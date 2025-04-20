@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
-import { auth, database } from '../firebase.js';
+import { auth } from '../firebase.js';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { ref, get } from 'firebase/database';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -13,33 +12,22 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      // First, authenticate the user
+      // Sign in the user with email and password
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // Then, check if the user exists in the Realtime Database
-      const userRef = ref(database, 'users/' + user.uid);
-      const snapshot = await get(userRef);
-      
-      if (snapshot.exists()) {
-        // User exists in the database
-        console.log("User data:", snapshot.val());
-        setMessage("✅ Login successful! Redirecting...");
-        setIsError(false);
+      // Success: User logged in successfully
+      setMessage("🎉 Welcome back!");
+      setIsError(false);
 
-        setTimeout(() => {
-          window.location.href = '/otp';
-        }, 2000);
-      } else {
-        // User authenticated but doesn't exist in the database
-        console.log("User authenticated but no data in database");
-        setMessage("⚠️ Account found but profile is incomplete. Please contact support.");
-        setIsError(true);
-      }
+      // Redirect to the history page after 2 seconds
+      setTimeout(() => {
+        window.location.href = '/history'; // Redirect to the history page
+      }, 2000);
 
     } catch (error) {
       let errorMsg = "Login failed.";
-
+      console.error("Login error:", error);  // Log detailed error
       switch (error.code) {
         case 'auth/user-not-found':
           errorMsg = "🚫 User not found. Please sign up first.";
@@ -56,7 +44,6 @@ const LoginForm = () => {
 
       setMessage(errorMsg);
       setIsError(true);
-      console.error("Login error:", error.code, error.message);
     }
   };
 
