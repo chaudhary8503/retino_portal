@@ -1,138 +1,127 @@
 ---
-import Content from '~/components/widgets/Content.astro';
-import Hero from '~/components/widgets/Hero.astro';
 import Layout from '~/layouts/PageLayout.astro';
-import Imj1 from '~/components/imj1.astro';
-import Imj2 from '~/components/imj2.astro';
- 
+
 const metadata = {
-  title: 'Retinopathy of Prematurity',
+  title: 'Test History - RetinoPortal',
 };
+
+// Sample data - this would be replaced with actual data from your database
+const testResults = [
+  {
+    id: 1,
+    imageSrc: '~/assets/images/sample_retina1.jpg',
+    imageAlt: 'Retina Scan 1',
+    codeStage: 'DG 2',
+    dateUploaded: 'April 18, 2025',
+    details: 'Patient ID: 23401, Left eye'
+  },
+  {
+    id: 2,
+    imageSrc: '~/assets/images/sample_retina2.jpg',
+    imageAlt: 'Retina Scan 2',
+    codeStage: 'DG 1',
+    dateUploaded: 'April 17, 2025',
+    details: 'Patient ID: 23401, Right eye'
+  },
+  {
+    id: 3,
+    imageSrc: '~/assets/images/sample_retina3.jpg',
+    imageAlt: 'Retina Scan 3',
+    codeStage: 'DG 0',
+    dateUploaded: 'April 15, 2025',
+    details: 'Patient ID: 23399, Right eye'
+  }
+];
 ---
 
 <Layout metadata={metadata}>
-  
-  <!-- Content Widget - What is Retinopathy of Prematurity? **************** -->
- <Content
-  isReversed
-  title="What is Retinopathy of Prematurity?"
-  image={{ src: '~/assets/images/retina_image.jpg', alt: 'Baby eye' }}
-  items={[
-    {
-      description:
-        'Retinopathy of Prematurity (ROP) is a condition that affects premature infants, potentially leading to blindness if not detected and treated early.',
-    },
-    {
-      description:
-        'The condition is caused by abnormal growth of blood vessels in the retina, which can eventually lead to retinal detachment.',
-    },
-    {
-      description:
-        'ROP is most commonly seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth.',
-    },
-    {
-      description:
-        'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
-    },
-  ]}
->
-  <Fragment slot="bg">
-    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
-  </Fragment>
+  <section class="px-4 py-16 sm:px-6 mx-auto lg:px-8 lg:py-20 max-w-6xl">
+    <div class="mb-10">
+      <div class="flex justify-between items-center">
+        <div class="logo">
+          <!-- Replace with your actual logo component or image -->
+          <img src="/placeholder-logo.png" alt="RetinoPortal Logo" class="h-12" />
+        </div>
+        <div class="page-title text-center text-2xl font-bold flex-grow">
+          RetinoPortal
+        </div>
+        <div class="history-label font-bold p-2 border border-gray-200 rounded bg-gray-100">
+          History
+        </div>
+      </div>
+    </div>
 
-  <!-- Image Component -->
-  <Imj1 />
-</Content>
+    <div class="my-8">
+      <h2 class="text-xl font-bold text-gray-700 mb-6">Test Results:</h2>
+      
+      {testResults.length > 0 ? (
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code/Stage</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Uploaded</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Other Details</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {testResults.map((result) => (
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-16 w-20 bg-purple-50 rounded overflow-hidden">
+                        <img src={result.imageSrc} alt={result.imageAlt} class="h-full w-full object-cover" />
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
+                      {result.codeStage}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {result.dateUploaded}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {result.details}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div class="text-center py-16 text-gray-500">
+          No test results found.
+        </div>
+      )}
+    </div>
 
-<Content
-  isReversed
-  title="Breaking Down the Diagnosis Codes"
-  image={{ src: '~/assets/images/table.png', alt: 'ROP diagnosis codes' }}
-  items={[
-    {
-      description:
-        'DG 0 (No ROP): No signs of retinopathy; considered as normal.',
-    },
-    {
-      description:
-        'DG 1-2 (ROP Stages 1-2): Early stages of ROP where abnormal blood vessels start to form; treatable with medical intervention.',
-    },
-    {
-      description:
-        'DG 3-4 (ROP Stages 3-4): Severe stages where retinal detachment may start; immediate intervention needed to prevent blindness.',
-    },
-    {
-      description:
-        'DG 5 (Complete Retinal Detachment): Severe ROP, leading to retinal detachment; can cause permanent vision loss without prompt treatment.',
-    },
-    {
-      description:
-        'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
-    },
-  ]}
->
-  <Fragment slot="bg">
-    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
-  </Fragment>
-
-  <!-- Image Component -->
-  <Imj2 />
-</Content>
-
-  <!-- Content Widget - The Problem and How We Can Help **************** -->
-  <Content
-    isReversed
-    title="The Problem & How We Can Help"
-    image={{ src: '~/assets/images/baby_2.jpg', alt: 'Baby' }}
-    items={[
-      {
-        description:
-          'ROP\'s early detection remains a global challenge, especially in underserved regions where trained specialists are scarce. Traditional manual screening is time-consuming and resource-intensive, delaying diagnoses and treatment.',
-      },
-      {
-        description:
-          'RetinoPortal provides an AI-driven solution using deep learning techniques, particularly convolutional neural networks (CNN), to automate the detection and classification of ROP.',
-      },
-      {
-        description:
-          'Trained on a dataset of over 6,000 retinal images, our model has achieved 98.48% accuracy, offering fast, reliable, and accurate results to healthcare professionals.',
-      },
-      {
-        description:
-          'This aids in early diagnosis and timely intervention, reducing the risk of blindness.',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
-    </Fragment>
-    <Fragment slot="footer" class="text-center mt-4">
-      <strong class="block mb-2">Upload and Test</strong>
-      <a href="/uploadastro" class="bg-blue-500 text-white px-6 py-2 rounded">
-        Upload Your Data
+    <div class="mt-12 text-center">
+      <a href="/uploadastro" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded inline-block transition-colors">
+        Test Another Input
       </a>
-    </Fragment>
-  </Content>
-
-  <!-- Content Widget - Contact Us for Any Support **************** -->
-  <Content
-    isReversed
-    title="Contact Us"
-    items={[
-      {
-        description:
-          'If you have any suggestions, improvements, or feedback regarding our platform, please don’t hesitate to contact us. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.',
-      },
-    ]}
-  >
-    <Fragment slot="footer" class="text-center mt-4">
-      <input
-        type="email"
-        placeholder="Enter your email"
-        class="border rounded px-4 py-2"
-      />
-      <p class="mt-2 text-blue-600">support@ropplatform.com</p>
-    </Fragment>
-  </Content>
-
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .logo img {
+    height: 50px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  tbody tr:hover {
+    background-color: #f5f7ff;
+  }
+</style>
