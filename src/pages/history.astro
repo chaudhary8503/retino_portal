@@ -1,0 +1,138 @@
+---
+import Content from '~/components/widgets/Content.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import Imj1 from '~/components/imj1.astro';
+import Imj2 from '~/components/imj2.astro';
+ 
+const metadata = {
+  title: 'Retinopathy of Prematurity',
+};
+---
+
+<Layout metadata={metadata}>
+  
+  <!-- Content Widget - What is Retinopathy of Prematurity? **************** -->
+ <Content
+  isReversed
+  title="What is Retinopathy of Prematurity?"
+  image={{ src: '~/assets/images/retina_image.jpg', alt: 'Baby eye' }}
+  items={[
+    {
+      description:
+        'Retinopathy of Prematurity (ROP) is a condition that affects premature infants, potentially leading to blindness if not detected and treated early.',
+    },
+    {
+      description:
+        'The condition is caused by abnormal growth of blood vessels in the retina, which can eventually lead to retinal detachment.',
+    },
+    {
+      description:
+        'ROP is most commonly seen in infants born before 32 weeks of gestation or weighing less than 2.75 pounds at birth.',
+    },
+    {
+      description:
+        'If left untreated, ROP can result in permanent vision loss; early detection and treatment are vital to preventing severe outcomes.',
+    },
+  ]}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
+  </Fragment>
+
+  <!-- Image Component -->
+  <Imj1 />
+</Content>
+
+<Content
+  isReversed
+  title="Breaking Down the Diagnosis Codes"
+  image={{ src: '~/assets/images/table.png', alt: 'ROP diagnosis codes' }}
+  items={[
+    {
+      description:
+        'DG 0 (No ROP): No signs of retinopathy; considered as normal.',
+    },
+    {
+      description:
+        'DG 1-2 (ROP Stages 1-2): Early stages of ROP where abnormal blood vessels start to form; treatable with medical intervention.',
+    },
+    {
+      description:
+        'DG 3-4 (ROP Stages 3-4): Severe stages where retinal detachment may start; immediate intervention needed to prevent blindness.',
+    },
+    {
+      description:
+        'DG 5 (Complete Retinal Detachment): Severe ROP, leading to retinal detachment; can cause permanent vision loss without prompt treatment.',
+    },
+    {
+      description:
+        'Additional Codes: These may indicate specific conditions like AP-ROP or post-treatment stages.',
+    },
+  ]}
+>
+  <Fragment slot="bg">
+    <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
+  </Fragment>
+
+  <!-- Image Component -->
+  <Imj2 />
+</Content>
+
+  <!-- Content Widget - The Problem and How We Can Help **************** -->
+  <Content
+    isReversed
+    title="The Problem & How We Can Help"
+    image={{ src: '~/assets/images/baby_2.jpg', alt: 'Baby' }}
+    items={[
+      {
+        description:
+          'ROP\'s early detection remains a global challenge, especially in underserved regions where trained specialists are scarce. Traditional manual screening is time-consuming and resource-intensive, delaying diagnoses and treatment.',
+      },
+      {
+        description:
+          'RetinoPortal provides an AI-driven solution using deep learning techniques, particularly convolutional neural networks (CNN), to automate the detection and classification of ROP.',
+      },
+      {
+        description:
+          'Trained on a dataset of over 6,000 retinal images, our model has achieved 98.48% accuracy, offering fast, reliable, and accurate results to healthcare professionals.',
+      },
+      {
+        description:
+          'This aids in early diagnosis and timely intervention, reducing the risk of blindness.',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-purple-50 dark:bg-transparent"></div>
+    </Fragment>
+    <Fragment slot="footer" class="text-center mt-4">
+      <strong class="block mb-2">Upload and Test</strong>
+      <a href="/uploadastro" class="bg-blue-500 text-white px-6 py-2 rounded">
+        Upload Your Data
+      </a>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget - Contact Us for Any Support **************** -->
+  <Content
+    isReversed
+    title="Contact Us"
+    items={[
+      {
+        description:
+          'If you have any suggestions, improvements, or feedback regarding our platform, please don’t hesitate to contact us. Your input is valuable to us as we continue to improve RetinoPortal and help reduce the burden of Retinopathy of Prematurity worldwide.',
+      },
+    ]}
+  >
+    <Fragment slot="footer" class="text-center mt-4">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="border rounded px-4 py-2"
+      />
+      <p class="mt-2 text-blue-600">support@ropplatform.com</p>
+    </Fragment>
+  </Content>
+
+</Layout>
