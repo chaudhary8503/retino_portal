@@ -1,21 +1,17 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
 const metadata = {
   title: 'Upload | RetinoPortal',
   ignoreTitleTemplate: false,
 };
-
 // Dummy function for now (You'll handle file processing separately)
 const handleUpload = (event) => {
   event.preventDefault();
   console.log("File upload triggered!");
-
   // Trigger the redirection logic
   window.location.href = '/report'; // Redirect to the 'Generating Assessment Report' page
 };
 ---
-
 <Layout metadata={metadata}>
   <section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-900 dark:to-gray-800">
     <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">
@@ -36,7 +32,6 @@ const handleUpload = (event) => {
             class="w-full px-4 py-3 mt-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none dark:bg-gray-700 dark:text-white transition"
           />
         </div>
-
         <!-- Upload Button -->
         <button 
           type="submit" 
@@ -45,45 +40,35 @@ const handleUpload = (event) => {
           Upload
         </button>
       </form>
-
-      <!-- View Uploaded Files Link -->
+      <!-- View Uploaded Files Link - Updated to point to history page -->
       <p class="text-center text-gray-600 dark:text-gray-400 mt-6">
-        Want to see your uploads? <a href="/uploads" class="text-accent font-semibold hover:underline">View Files</a>
+        Want to see your uploads? <a href="/history" class="text-accent font-semibold hover:underline">View Files</a>
       </p>
     </div>
   </section>
-
   <!-- JavaScript for Client-Side Redirection -->
   <script>
   document.querySelector("form").addEventListener("submit", async function(event) {
     event.preventDefault();
-
     const fileInput = document.querySelector("#file");
     const selectedFile = fileInput.files[0];
-
     if (!selectedFile) {
       alert("Please select an image before uploading.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", selectedFile);
-
     try {
       console.log("📤 Uploading file...");
-
       const response = await fetch("http://127.0.0.1:5000/upload", {
         method: "POST",
         body: formData,
       });
-
       if (!response.ok) {
         throw new Error("Failed to upload image");
       }
-
       const result = await response.json();
       console.log("✅ Upload Successful:", result);
-
       alert("Image uploaded successfully!");
       window.location.href = "/report"; // Redirect after successful upload
     } catch (error) {
