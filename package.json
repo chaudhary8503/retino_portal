@@ -39,6 +39,8 @@
     "lodash.merge": "^4.6.2",
     "nodemailer": "^6.10.1",
     "preact": "^10.26.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "unpic": "^3.22.0",
     "zwitch": "^2.0.4"
   },

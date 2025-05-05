@@ -1,12 +1,23 @@
-import { useState } from 'preact/hooks';
+
 import { auth } from '../firebase.js';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState, useEffect } from 'preact/hooks';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    if (auth.currentUser) {
+      // Redirect to the history page if the user is already logged in
+      window.location.href = '/history';
+    } else {
+      setLoading(false); // Stop loading if not logged in
+    }
+  }, []); // Run only once when the component mounts
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -15,7 +26,9 @@ const LoginForm = () => {
       // Sign in the user with email and password
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
+      localStorage.setItem('user_id', user.uid)
+
+      console.log(user.uid)
       // Success: User logged in successfully
       setMessage("🎉 Welcome back!");
       setIsError(false);
