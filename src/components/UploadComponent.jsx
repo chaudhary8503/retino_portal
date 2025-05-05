@@ -16,29 +16,35 @@ const UploadComponent = () => {
   // Handle form submission
   const handleUpload = async (event) => {
     event.preventDefault();
-
+  
     if (!selectedFile) {
       alert("Please select an image first!");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append("file", selectedFile);
-
+  
     try {
       const response = await fetch("http://127.0.0.1:5000/upload", {
         method: "POST",
         body: formData,
       });
-
+  
       const result = await response.json();
       console.log("Response:", result);
       alert("Image uploaded successfully!");
+  
+      // ✅ Clear state and input
+      setSelectedFile(null);
+      setImage(null);
+      document.getElementById("file-upload").value = "";
     } catch (error) {
       console.error("Upload failed:", error);
       alert("Upload failed. Check the console for details.");
     }
   };
+  
 
   return (
     <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-xl shadow-lg w-full max-w-md">

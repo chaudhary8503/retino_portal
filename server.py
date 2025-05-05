@@ -57,6 +57,7 @@ def get_report():
     """Generates a PDF report using the last predicted class."""
     report_id = "12345"
     report_path = os.path.join(REPORTS_DIR, f"{report_id}.pdf")
+    image_path = "src/assets/images/table.png"  # Make sure this path is correct
 
     # Retrieve last stored prediction
     predicted_class = predictions_store.get("last_prediction", "Unknown")
@@ -67,11 +68,26 @@ def get_report():
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
+
+    # Title
     pdf.cell(200, 10, txt="Retinopathy Assessment Report", ln=True, align="C")
     pdf.ln(10)
-    pdf.cell(200, 10, txt=f"Predicted Diagnosis: {predicted_class}", ln=True, align="L")
 
-    pdf.output(report_path)  
+    # Diagnosis
+    pdf.cell(200, 10, txt=f"Predicted Diagnosis: {predicted_class}", ln=True, align="L")
+    pdf.ln(10)
+
+    # Add image
+    if os.path.exists(image_path):
+        try:
+            pdf.image(image_path, x=10, y=None, w=pdf.w - 20)  # Adjust size and positioning if needed
+            pdf.ln(10)
+        except Exception as e:
+            print(f"⚠️ Failed to add image: {e}")
+            pdf.cell(200, 10, txt="Note: Diagnosis code table image could not be loaded.", ln=True)
+
+    # Save PDF
+    pdf.output(report_path)
 
     return jsonify({"report_url": f"/reports/{report_id}.pdf"})
 

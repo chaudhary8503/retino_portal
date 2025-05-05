@@ -1,85 +1,58 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { getUploadHistory } from '~/firebase/firebaseFunctions'; // Import the function to fetch data from Firebase
-
-const metadata = {
-  title: 'Test History - RetinoPortal',
-};
-
-// Fetch data from Firebase Firestore
-const userId = 'user-12345'; // Use the actual logged-in user's ID here
-const testResults = await getUploadHistory(userId);
+const metadata = { title: 'Test History - RetinoPortal' };
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 py-8 sm:px-6 mx-auto lg:px-8 max-w-6xl">
-    <div class="my-8">
-      <h2 class="text-xl font-bold text-gray-700 mb-6">Test Results:</h2>
-      
-      {testResults.length > 0 ? (
-        <div class="overflow-x-auto">
-          <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code/Stage</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Uploaded</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Other Details</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              {testResults.map((result) => (
-                <tr class="hover:bg-gray-50">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="flex-shrink-0 h-16 w-20 bg-purple-50 rounded overflow-hidden">
-                        <img src={result.image_url} alt="Uploaded Retina Image" class="h-full w-full object-cover" />
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
-                      {result.code_stage}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(result.date_uploaded.seconds * 1000).toLocaleString()}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {result.patient_id} - {result.eye_side}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div class="text-center py-16 text-gray-500">
-          No test results found.
-        </div>
-      )}
+  <section class="px-4 py-8 max-w-6xl mx-auto">
+    <h2 class="text-xl font-bold text-gray-700 mb-6">Test Results:</h2>
+    <div id="resultsContainer" class="text-center text-gray-500">
+      Loading your test history...
     </div>
-
     <div class="mt-12 text-center">
-      <a href="/uploadastro" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded inline-block transition-colors">
+      <a href="/upload" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded inline-block transition-colors">
         Test Another Input
       </a>
     </div>
   </section>
-</Layout>
 
-<style>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
-  }
-  
-  tbody tr:hover {
-    background-color: #f5f7ff;
-  }
-</style>
+  <script type="module">
+    import { getUploadHistory } from '~/firebase/firebaseFunctions';
+
+    const userId = localStorage.getItem('user_id');
+    const container = document.getElementById('resultsContainer');
+
+    if (userId) {
+      const results = await getUploadHistory(userId);
+
+      if (results.length > 0) {
+        container.innerHTML = `
+          <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-md">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Image</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code/Stage</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date Uploaded</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Other Details</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              ${results.map(result => `
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4"><img src="${result.image_url}" class="h-16 w-20 object-cover" /></td>
+                  <td class="px-6 py-4">${result.code_stage}</td>
+                  <td class="px-6 py-4">${new Date(result.date_uploaded.seconds * 1000).toLocaleString()}</td>
+                  <td class="px-6 py-4">${result.patient_id} - ${result.eye_side}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } else {
+        container.innerText = "No test results found.";
+      }
+    } else {
+      container.innerText = "User not logged in. Please log in.";
+    }
+  </script>
+</Layout>

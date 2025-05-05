@@ -15,28 +15,28 @@ export default function SignupForm() {
     const password = event.target.password.value;
     const confirmPassword = event.target['confirm-password'].value;
   
-    console.log("Name:", name, "Email:", email, "Password:", password, "Confirm Password:", confirmPassword);  // Debugging step
-  
     if (password !== confirmPassword) {
       setMessage("🚫 Passwords do not match.");
       setIsSuccess(false);
       return;
     }
   
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
+    if (!passwordRegex.test(password)) {
+      setMessage("🚫 Password must be 8–16 characters long and include at least 1 uppercase letter, 1 number, and 1 special character.");
+      setIsSuccess(false);
+      return;
+    }
+  
     try {
-      console.log("Attempting to create user with email:", email);  // Debugging step
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-  
-      console.log("User created:", user);  // Debugging step
   
       await set(ref(database, 'users/' + user.uid), {
         fullName: name,
         email: email,
         createdAt: new Date().toISOString()
       });
-  
-      console.log("User data saved to Firebase");  // Debugging step
   
       setMessage("🎉 Signup successful! Redirecting to OTP...");
       setIsSuccess(true);
@@ -45,11 +45,12 @@ export default function SignupForm() {
         window.location.href = "/otp";
       }, 2000);
     } catch (error) {
-      console.error("Error during signup:", error);  // Debugging step
+      console.error("Error during signup:", error);
       setMessage("❌ Error: " + error.message);
       setIsSuccess(false);
     }
   };
+  
   
 
   return (
