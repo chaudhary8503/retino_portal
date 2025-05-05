@@ -1,37 +1,14 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import { getUploadHistory } from '~/firebase/firebaseFunctions'; // Import the function to fetch data from Firebase
 
 const metadata = {
   title: 'Test History - RetinoPortal',
 };
 
-// Sample data - this would be replaced with actual data from your database
-const testResults = [
-  {
-    id: 1,
-    imageSrc: '~/assets/images/sample_retina1.jpg',
-    imageAlt: 'Retina Scan 1',
-    codeStage: 'DG 2',
-    dateUploaded: 'April 18, 2025',
-    details: 'Patient ID: 23401, Left eye'
-  },
-  {
-    id: 2,
-    imageSrc: '~/assets/images/sample_retina2.jpg',
-    imageAlt: 'Retina Scan 2',
-    codeStage: 'DG 1',
-    dateUploaded: 'April 17, 2025',
-    details: 'Patient ID: 23401, Right eye'
-  },
-  {
-    id: 3,
-    imageSrc: '~/assets/images/sample_retina3.jpg',
-    imageAlt: 'Retina Scan 3',
-    codeStage: 'DG 0',
-    dateUploaded: 'April 15, 2025',
-    details: 'Patient ID: 23399, Right eye'
-  }
-];
+// Fetch data from Firebase Firestore
+const userId = 'user-12345'; // Use the actual logged-in user's ID here
+const testResults = await getUploadHistory(userId);
 ---
 
 <Layout metadata={metadata}>
@@ -56,20 +33,20 @@ const testResults = [
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="flex-shrink-0 h-16 w-20 bg-purple-50 rounded overflow-hidden">
-                        <img src={result.imageSrc} alt={result.imageAlt} class="h-full w-full object-cover" />
+                        <img src={result.image_url} alt="Uploaded Retina Image" class="h-full w-full object-cover" />
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
-                      {result.codeStage}
+                      {result.code_stage}
                     </span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {result.dateUploaded}
+                    {new Date(result.date_uploaded.seconds * 1000).toLocaleString()}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {result.details}
+                    {result.patient_id} - {result.eye_side}
                   </td>
                 </tr>
               ))}
